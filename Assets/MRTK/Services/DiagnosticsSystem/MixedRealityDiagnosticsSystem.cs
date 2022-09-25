@@ -87,7 +87,7 @@ namespace Microsoft.MixedReality.Toolkit.Diagnostics
 
             // Apply profile settings
             ShowDiagnostics = profile.ShowDiagnostics;
-            ShowProfiler = profile.ShowProfiler;
+            //ShowProfiler = profile.ShowProfiler;
             ShowFrameInfo = profile.ShowFrameInfo;
             ShowMemoryStats = profile.ShowMemoryStats;
             FrameSampleRate = profile.FrameSampleRate;

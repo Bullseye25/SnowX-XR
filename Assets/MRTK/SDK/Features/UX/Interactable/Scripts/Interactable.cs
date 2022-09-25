@@ -719,17 +719,24 @@ namespace Microsoft.MixedReality.Toolkit.UI
                 }
             }
 
-            if (lastState != StateManager.CurrentState())
+            try
             {
-                int handlersCount = handlers.Count;
-                for (int i = 0; i < handlersCount; i++)
+                if (lastState != StateManager.CurrentState())
                 {
-                    IInteractableHandler handler = handlers[i];
-                    if (handler != null)
+                    int handlersCount = handlers.Count;
+                    for (int i = 0; i < handlersCount; i++)
                     {
-                        handler.OnStateChange(StateManager, this);
+                        IInteractableHandler handler = handlers[i];
+                        if (handler != null)
+                        {
+                            handler.OnStateChange(StateManager, this);
+                        }
                     }
                 }
+            }
+            catch
+            {
+
             }
 
             if (forceUpdate)

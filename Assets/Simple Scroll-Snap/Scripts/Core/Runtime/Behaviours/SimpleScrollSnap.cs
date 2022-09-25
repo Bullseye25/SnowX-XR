@@ -352,7 +352,7 @@ namespace DanielLochner.Assets.SimpleScrollSnap
             releaseSpeed = Velocity.magnitude;
         }
 
-        private void Setup()
+        public void Setup()
         {
             if (NumberOfPanels == 0) return;
 
@@ -774,8 +774,9 @@ namespace DanielLochner.Assets.SimpleScrollSnap
 
         private Vector2 GetDisplacementFromCenter(int index)
         {
-            return Panels[index].anchoredPosition + Content.anchoredPosition - new Vector2(Viewport.rect.width * (0.5f - Content.anchorMin.x), Viewport.rect.height * (0.5f - Content.anchorMin.y));
+            return Panels[index].anchoredPosition + Content.anchoredPosition - new Vector2(Viewport.rect.width * (0.5f - Content.anchorMin.x), Viewport.rect.height * (0.5f - Content.anchorMin.y));   
         }
+
         private int GetNearestPanel()
         {
             float[] distances = new float[NumberOfPanels];
