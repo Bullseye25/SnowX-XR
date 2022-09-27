@@ -44,7 +44,14 @@ public class OculusSampleFrameworkUtil
   {
     if (state == PlayModeStateChange.EnteredPlayMode)
     {
-      OVRPlugin.SendEvent("load", OVRPlugin.wrapperVersion.ToString(), "sample_framework");
+            try
+            {
+                OVRPlugin.SendEvent("load", OVRPlugin.wrapperVersion.ToString(), "sample_framework");
+            }
+            catch
+            {
+
+            }
     }
   }
 #endif

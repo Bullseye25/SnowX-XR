@@ -103,20 +103,16 @@ public class CollectionOperator : MonoBehaviour
                 var mc = glb.AddComponent<BoxCollider>();
                 mc.size = new Vector3(2.5f, 2.5f, 2.5f);
                 mc.center = Vector3.zero;
-                //mc.convex = true;
-                //mc.sharedMesh = glb.transform.GetComponentInChildren<MeshFilter>().mesh;
 
-                //var audio = glb.AddComponent<AudioSource>();
+                //glb.AddComponent<NearInteractionGrabbable>();
 
-                glb.AddComponent<NearInteractionGrabbable>();
+                //glb.AddComponent<CursorContextObjectManipulator>();
 
-                glb.AddComponent<CursorContextObjectManipulator>();
+                //var tp = glb.AddComponent<TetheredPlacement>();
+                //tp.DistanceThreshold = 20;
 
-                var tp = glb.AddComponent<TetheredPlacement>();
-                tp.DistanceThreshold = 20;
-
-                glb.AddComponent<ObjectManipulator>();
-                glb.AddComponent<ConstraintManager>();
+                //glb.AddComponent<ObjectManipulator>();
+                //glb.AddComponent<ConstraintManager>();
 
                 glb.SetActive(false);
 
@@ -142,14 +138,6 @@ public class CollectionOperator : MonoBehaviour
                     selection.SetActive(true);
                 }));
             }
-
-            //else
-            //{
-            //    var slot = GetAvailableSlot();
-            //    selections.Remove(slot);
-            //    Destroy(slot);
-            //    snap.Setup();
-            //}
         }));
     }
 
