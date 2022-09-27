@@ -392,15 +392,8 @@ namespace Microsoft.MixedReality.Toolkit.Diagnostics
 
                     if (defaultInstancedMaterial != null && SystemInfo.supportsInstancing)
                     {
-                        try
-                        {
-                            frameInfoPropertyBlock.SetMatrix(parentMatrixID, parentLocalToWorldMatrix);
-                            Graphics.DrawMeshInstanced(quadMesh, 0, defaultInstancedMaterial, frameInfoMatrices, frameInfoMatrices.Length, frameInfoPropertyBlock, UnityEngine.Rendering.ShadowCastingMode.Off, false);
-                        }
-                        catch
-                        {
-
-                        }
+                        frameInfoPropertyBlock.SetMatrix(parentMatrixID, parentLocalToWorldMatrix);
+                        Graphics.DrawMeshInstanced(quadMesh, 0, defaultInstancedMaterial, frameInfoMatrices, frameInfoMatrices.Length, frameInfoPropertyBlock, UnityEngine.Rendering.ShadowCastingMode.Off, false);
                     }
                     else
                     {

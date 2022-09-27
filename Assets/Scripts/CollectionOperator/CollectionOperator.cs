@@ -226,7 +226,11 @@ public class CollectionOperator : MonoBehaviour
             yield return null;
         }
 
+#if UNITY_2019_4
+        if(www.isNetworkError == true || www.isHttpError == true)
+#else
         if (www.result != UnityWebRequest.Result.Success)
+#endif
         {
             Debug.Log($"{name} Image not Found, replacing with default image");
 
