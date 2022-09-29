@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-using EGOR = Microsoft.MixedReality.Toolkit.Utilities;
+using UniGLTF;
+using Microsoft.MixedReality.Toolkit.Utilities;
 using Microsoft.MixedReality.Toolkit.Utilities.Gltf.Serialization;
 using System;
 using UnityEngine.UI;
@@ -145,8 +146,6 @@ public class CollectionOperator : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequest.Get(uri);
 
-        //yield return www.SendWebRequest();
-
         var processor = www.SendWebRequest();
 
         while (!processor.isDone)
@@ -160,45 +159,68 @@ public class CollectionOperator : MonoBehaviour
 
         if (processor.isDone)
         {
-            var gltfObject = GltfUtility.GetGltfObjectFromGlb(www.downloadHandler.data);
+            GlbBinaryParser glbData = new GlbBinaryParser(www.downloadHandler.data, title);
+
+            var glbAct = glbData.Parse();
+
+            ImporterContext importer = new ImporterContext(glbAct);
 
             yield return new WaitForEndOfFrame();
 
-            if (gltfObject == null)
+            try
             {
-                glb(null);
-            }
-            else
-            {
-                CreateArt(gltfObject, newArt =>
+                var context = importer.Load();
+
+                context.ShowMeshes();
+
+                var gltfObject = context.Root;
+
+                if (gltfObject == null)
                 {
-                    newArt.name = title;
+                    glb(null);
+                }
+                else
+                {
+                    gltfObject.name = title;
+                    glb(gltfObject);
+                }
+            }
+            catch
+            {
+                var gltfObject = Microsoft.MixedReality.Toolkit.Utilities.Gltf.Serialization.GltfUtility.GetGltfObjectFromGlb(www.downloadHandler.data);
 
-                    var meshes = newArt.GetComponentsInChildren<MeshRenderer>();
-
-                    foreach (MeshRenderer mesh in meshes)
+                if (gltfObject == null)
+                {
+                    glb(null);
+                }
+                else
+                {
+                    CreateArt(gltfObject, newArt =>
                     {
-                        mesh.materials = new Material[0];
-
-                        mesh.materials = new Material[]
-                        {
-                        mat
-                        };
-                    }
-
-                    glb(newArt);
-                });
+                        newArt.name = title;
+                        glb(newArt);
+                    });
+                }
             }
         }
     }
 
-    private async void CreateArt(EGOR.Gltf.Schema.GltfObject gltfObject, Action<GameObject> action)
+    private async void CreateArt(Microsoft.MixedReality.Toolkit.Utilities.Gltf.Schema.GltfObject gltfObject, Action<GameObject> action)
     {
         await gltfObject.ConstructAsync();
 
-        action(gltfObject.GameObjectReference);
-    }
+        var gltfObjectd = gltfObject.GameObjectReference;
 
+        if (gltfObjectd == null)
+        {
+            action(null);
+        }
+        else
+        {
+            action(gltfObject.GameObjectReference);
+        }
+    }
+     
     private IEnumerator GetTexture(string uri, string name, TextMeshProUGUI loadingbar, Action<Sprite> action)
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(uri);

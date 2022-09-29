@@ -1509,6 +1509,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1725239207}
   - component: {fileID: 1725239206}
+  - component: {fileID: 1725239208}
   m_Layer: 0
   m_Name: CollectionOperator
   m_TagString: Untagged
@@ -1563,6 +1564,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1725239208
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1725239205}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b80698ae8d1214edab3c442a26f61aec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  uri: https://nfts.snowx.com/0xbf62cf083c40d10db95ffb82af871f0e931858ff/7-artwork.glb
+  glb: {fileID: 0}
+  meshes: []
 --- !u!1001 &2132253400
 PrefabInstance:
   m_ObjectHideFlags: 0
