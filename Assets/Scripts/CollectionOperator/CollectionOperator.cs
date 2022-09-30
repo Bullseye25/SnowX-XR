@@ -12,8 +12,7 @@ using Microsoft.MixedReality.Toolkit.UI;
 using Microsoft.MixedReality.Toolkit.Examples.Demos;
 using UnityEngine.Events;
 using TMPro;
-
-public delegate void Proceed(string glbPath, string title, Artwork art);
+using UniGLTF;
 
 public class CollectionOperator : MonoBehaviour
 {
@@ -160,34 +159,53 @@ public class CollectionOperator : MonoBehaviour
 
         if (processor.isDone)
         {
-            var gltfObject = GltfUtility.GetGltfObjectFromGlb(www.downloadHandler.data);
-
             yield return new WaitForEndOfFrame();
 
-            if (gltfObject == null)
+            try
             {
-                glb(null);
+                var data = www.downloadHandler.data;
+
+                var binaryParser = new GlbBinaryParser(data, title);
+
+                var parse = binaryParser.Parse();
+
+                ImporterContext importer = new ImporterContext(parse);
+
+                var context = importer.Load();
+
+                context.ShowMeshes();
+
+                glb(context.Root);
             }
-            else
+            catch
             {
-                CreateArt(gltfObject, newArt =>
+                var gltfObject = Microsoft.MixedReality.Toolkit.Utilities.Gltf.Serialization.GltfUtility.GetGltfObjectFromGlb(www.downloadHandler.data);
+
+                if (gltfObject == null)
                 {
-                    newArt.name = title;
-
-                    var meshes = newArt.GetComponentsInChildren<MeshRenderer>();
-
-                    foreach (MeshRenderer mesh in meshes)
+                    glb(null);
+                }
+                else
+                {
+                    CreateArt(gltfObject, newArt =>
                     {
-                        mesh.materials = new Material[0];
+                        newArt.name = title;
 
-                        mesh.materials = new Material[]
+                        var meshes = newArt.GetComponentsInChildren<MeshRenderer>();
+
+                        foreach (MeshRenderer mesh in meshes)
                         {
-                        mat
-                        };
-                    }
+                            mesh.materials = new Material[0];
 
-                    glb(newArt);
-                });
+                            mesh.materials = new Material[]
+                            {
+                                mat
+                            };
+                        }
+
+                        glb(newArt);
+                    });
+                }
             }
         }
     }
