@@ -714,7 +714,7 @@ PlayerSettings:
   scriptingDefineSymbols:
     0: OCULUSINTEGRATION_PRESENT
     1: OCULUSINTEGRATION_PRESENT
-    7: OCULUSINTEGRATION_PRESENT
+    7: OCULUSINTEGRATION_PRESENT;MRTK_GLTF_IMPORTER_OFF
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
