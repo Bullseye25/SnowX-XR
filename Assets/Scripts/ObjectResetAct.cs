@@ -9,6 +9,7 @@ public class ObjectResetAct : MonoBehaviour
     [SerializeField] private Vector3 position;
     [SerializeField] private Quaternion rotation;
     [SerializeField] private Vector3 scale;
+    [SerializeField] private Transform targetAct;
 
     [ContextMenu("CaptureData")]
     public void CaptureData()
@@ -23,8 +24,8 @@ public class ObjectResetAct : MonoBehaviour
         source.clip = clip;
         source.Play();
 
-        transform.localPosition = position;
-        transform.localRotation = rotation;
-        transform.localScale = scale;
+        transform.position = targetAct.position; //position;
+        transform.localRotation = rotation; 
+        transform.localScale = scale; 
     }
 }

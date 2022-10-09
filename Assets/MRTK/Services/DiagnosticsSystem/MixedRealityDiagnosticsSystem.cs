@@ -58,7 +58,7 @@ namespace Microsoft.MixedReality.Toolkit.Diagnostics
             // visual profiler settings
             visualProfiler = diagnosticVisualizationParent.AddComponent<MixedRealityToolkitVisualProfiler>();
             visualProfiler.WindowParent = diagnosticVisualizationParent.transform;
-            visualProfiler.IsVisible = ShowProfiler;
+            //visualProfiler.IsVisible = ShowProfiler;
             visualProfiler.FrameInfoVisible = ShowFrameInfo;
             visualProfiler.MemoryStatsVisible = ShowMemoryStats;
             visualProfiler.FrameSampleRate = FrameSampleRate;
@@ -87,7 +87,7 @@ namespace Microsoft.MixedReality.Toolkit.Diagnostics
 
             // Apply profile settings
             ShowDiagnostics = profile.ShowDiagnostics;
-            ShowProfiler = profile.ShowProfiler;
+            //ShowProfiler = profile.ShowProfiler;
             ShowFrameInfo = profile.ShowFrameInfo;
             ShowMemoryStats = profile.ShowMemoryStats;
             FrameSampleRate = profile.FrameSampleRate;
